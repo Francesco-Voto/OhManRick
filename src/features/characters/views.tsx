@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { httpClient } from 'services/apiClient';
 
 export const Characters = () => {
-    useEffect(() =>{
+    useEffect(() => {
         async function fetchData() {
         const characters = await httpClient.get('character');
         }
