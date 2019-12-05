@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { FlatList, Text } from 'react-native';
 import { Character } from 'types';
+import { CharacterItem } from './components/CharacterItem';
 
 export type Props = {
     characters: Character[];
@@ -9,7 +10,13 @@ export type Props = {
 
 function keyExtractor(item: Character): string{
     return `${item.id}`;
-}
+};
+
+function renderItem({ item }){
+    return(
+        <CharacterItem item={item} />
+    );
+};
 
 export const CharactersList = memo(({
     characters,
@@ -19,7 +26,7 @@ export const CharactersList = memo(({
         <FlatList
             data={characters}
             keyExtractor={keyExtractor}
-            renderItem={({ item }) => <Text>{item.name}</Text>}
+            renderItem={renderItem}
         />
     );
 });
