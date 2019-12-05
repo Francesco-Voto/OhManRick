@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { httpClient } from 'services/apiClient';
+import { CharactersList } from './List';
 
 export const Characters = () => {
+  const [characters, setCharacters] = useState([]);
     useEffect(() => {
         async function fetchData() {
-        const characters = await httpClient.get('character');
+        const { data: { results } } = await httpClient.get('character');
+        setCharacters(results);
         }
         fetchData();
       }, []);
-    return (<View />);
+    return (<CharactersList characters={characters} onPressCharacter={() => null} />);
 };
