@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { httpClient } from 'services/apiClient';
-import { CharactersList } from './List';
+import { CharactersList } from './components/List';
 
 export const Characters = () => {
   const [characters, setCharacters] = useState([]);
