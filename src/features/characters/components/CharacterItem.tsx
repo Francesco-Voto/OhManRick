@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Character } from 'types';
 import { H1, StatusBadge } from 'components';
+import { Theme } from '../../../config/theme';
 
 type Props = {
     item: Character;
@@ -16,24 +17,29 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.5,
       backgroundColor: 'white',
       flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: Theme.dimension.large * Theme.baseValue,
+      paddingHorizontal: Theme.dimension.medium * Theme.baseValue,
     },
     image:{
-        height: 40,
-        width: 40,
-        borderRadius: 20,
+        height: 80,
+        width: 80,
+        borderRadius: 40,
     },
     name: {
-      fontWeight: 'bold',
+      marginLeft: Theme.dimension.medium * Theme.baseValue,
     },
     status: {
-      
+        position: 'absolute',
+        top: Theme.dimension.medium * Theme.baseValue,
+        right: Theme.dimension.medium * Theme.baseValue
     },
 });
 
 export const CharacterItem = ({ item }: Props) => (
     <View style={styles.container}>
         <Image style={styles.image} source={{ uri: item.image}} />
-        <H1>{item.name}</H1>
-        <StatusBadge status={item.status} />
+        <H1 style={styles.name}>{item.name}</H1>
+        <StatusBadge style={styles.status} status={item.status} />
     </View>
 );
