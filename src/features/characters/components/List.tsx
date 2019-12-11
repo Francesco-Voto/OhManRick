@@ -6,7 +6,7 @@ import { CharacterItem } from './CharacterItem';
 
 export type Props = {
     characters: Character[];
-    onPressCharacter: (character: Character) => void;
+    onEndReached: () => void;
 };
 
 const styles = StyleSheet.create({
@@ -23,26 +23,26 @@ function keyExtractor(item: Character): string{
     return `${item.id}`;
 };
 
-function renderItem(onPress: (character: Character) => void){
-    return ({ item }) => (
-        <TouchableOpacity onPress={() => onPress(item)}>
-            <View style={styles.wrapper}>
+function renderItem({ item }){
+    return (
+        <View style={styles.wrapper}>
             <CharacterItem item={item} />
-            </View>
-        </TouchableOpacity>
+        </View>
     );
-};
+}
 
 export const CharactersList = memo(({
     characters,
-    onPressCharacter,
+    onEndReached,
 }: Props) => {
     return (
         <FlatList
             style={styles.list}
             data={characters}
             keyExtractor={keyExtractor}
-            renderItem={renderItem(onPressCharacter)}
+            renderItem={renderItem}
+            onEndReachedThreshold={1}
+            onEndReached={onEndReached}
         />
     );
 });

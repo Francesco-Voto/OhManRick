@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
       shadowOffset:{  width: 0,  height: 0,  },
       shadowColor: 'black',
       shadowOpacity: 0.5,
-      backgroundColor: 'white'
+      backgroundColor: 'white',
+      flexDirection: 'row',
     },
     image:{
         height: 40,
