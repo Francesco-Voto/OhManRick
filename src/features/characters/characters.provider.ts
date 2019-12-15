@@ -1,10 +1,12 @@
 import { IHTTPClient, httpClient } from 'services/apiClient';
-import { Character } from 'types';
+import { Character, Data } from 'types';
 
 let url = '/character';
 
+export const charactersFetcher = (client: IHTTPClient) => async (url: string): Promise<Data> => await client.get(url);
+
 export const DataProvider = (
-    client: IHTTPClient,
+    client: (url: string) => Promise<Data>,
 ) => (
     addCharacters: (characters: Character[]) => void,
     setLoading: (loading: boolean) => void,
@@ -13,7 +15,7 @@ export const DataProvider = (
     if(url){
         try{
             setLoading(true);
-            const data = await client.get(url);
+            const data = await client(url);
             addCharacters(data.data.results);
             url = data.data.info.next;
         }catch(error){
@@ -26,4 +28,4 @@ export const DataProvider = (
 };
 
 
-export const charactersProvider = DataProvider(httpClient);
+export const charactersProvider = DataProvider(charactersFetcher(httpClient));

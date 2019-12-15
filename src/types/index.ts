@@ -20,3 +20,12 @@ export type Character = {
     url: string;
     created: string;
 }
+
+export type Data = {
+    data: {
+        results: Character[];
+        info: {
+            next: string;
+        }
+    }
+}
