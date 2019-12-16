@@ -38,6 +38,8 @@ export const CharactersList = memo(({
     return (
         <FlatList
             style={styles.list}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingTop: 16}}
             data={characters}
             keyExtractor={keyExtractor}
             renderItem={renderItem}

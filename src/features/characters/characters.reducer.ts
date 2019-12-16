@@ -1,6 +1,6 @@
-import React, { createContext, useReducer, useContext } from 'react'
+import { useReducer } from 'react'
 import createUseContext from 'constate';
-import { ADD_CHARACTERS, SET_LOADING, SET_ERROR  } from 'consts/actionsTypes';
+import { ADD_CHARACTERS, SET_LOADING, SET_ERROR, SEARCH_CHARACTER  } from 'consts/actionsTypes';
 import { createReducer } from 'services/reducer';
 
 const initialState = {
@@ -34,10 +34,20 @@ const setError = (state, { error }) => {
     }
 )};
 
+const searchCharacter = (state, { newCharacters }) => { 
+  return(
+    { ...state,
+        error: null,
+        loading: false,
+        characters: newCharacters,
+    }
+)};
+
 export const reducer = createReducer(initialState, {
   [ADD_CHARACTERS]: addCharacters,
   [SET_LOADING]: setLoading,
   [SET_ERROR]: setError,
+  [SEARCH_CHARACTER]: searchCharacter,
 });
   
 

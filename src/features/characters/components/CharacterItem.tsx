@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, View } from 'react-native';
 import { Character } from 'types';
 import { H1, StatusBadge } from 'components';
-import { Theme } from '../../../config/theme';
+import { Theme } from 'config/theme';
 
 type Props = {
     item: Character;
