@@ -1,31 +1,6 @@
-import { IHTTPClient, httpClient } from 'services/apiClient';
-import { Character, Data } from 'types';
+import { httpClient } from 'services/apiClient';
+import { DataProvider } from 'services/data/baseProvider';
+import { charactersFetcher } from 'services/data/baseProvider';
+import { BaseUrlProvider } from 'services/data/urlProvider';
 
-let url = '/character';
-
-export const charactersFetcher = (client: IHTTPClient) => async (url: string): Promise<Data> => await client.get(url);
-
-export const DataProvider = (
-    client: (url: string) => Promise<Data>,
-) => (
-    addCharacters: (characters: Character[]) => void,
-    setLoading: (loading: boolean) => void,
-    setError: (error: any) => void,
-) => async () => {
-    if(url){
-        try{
-            setLoading(true);
-            const data = await client(url);
-            addCharacters(data.data.results);
-            url = data.data.info.next;
-        }catch(error){
-            setError(error);
-        }
-        finally{
-            setLoading(false);
-        }
-    }
-};
-
-
-export const charactersProvider = DataProvider(charactersFetcher(httpClient));
+export const charactersProvider = DataProvider(charactersFetcher(httpClient), new BaseUrlProvider());

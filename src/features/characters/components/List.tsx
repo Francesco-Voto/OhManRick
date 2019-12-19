@@ -3,9 +3,10 @@ import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Theme } from 'config/theme';
 import { Character } from 'types';
 import { CharacterItem } from './CharacterItem';
+import { LoaderItem } from './LoadingItem';
 
 export type Props = {
-    characters: Character[];
+    characters: Character[] | { }[];
     onEndReached: () => void;
 };
 
@@ -24,6 +25,14 @@ function keyExtractor(item: Character): string{
 };
 
 function renderItem({ item }){
+    console.log(item);
+    if( item.id === 'loading'){
+        return (
+            <View style={styles.wrapper}>
+            <LoaderItem />
+        </View>
+        )
+    }
     return (
         <View style={styles.wrapper}>
             <CharacterItem item={item} />
@@ -43,7 +52,7 @@ export const CharactersList = memo(({
             data={characters}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
-            onEndReachedThreshold={1}
+            onEndReachedThreshold={3}
             onEndReached={onEndReached}
         />
     );

@@ -1,18 +1,30 @@
-import React, { useEffect, memo } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { useCharactersContext } from 'services/reducer';
 import { CharactersList } from './components/List';
-import { useCharactersContext } from './characters.reducer';
 import { charactersProvider } from './characters.provider';
-import { ActivityIndicator, View } from 'react-native';
 
 export const Characters = memo(() => {
-    const { characters, loading, error, setNewCharacters, setLoading, setError } = useCharactersContext();
-    const fetchNewCharacters = charactersProvider(setNewCharacters, setLoading, setError);
+    const { characters, loading, error, addNewCharacters, setLoading, setError } = useCharactersContext();
+    const fetchNewCharacters = charactersProvider(addNewCharacters, setLoading, setError);
+
     useEffect(() => {
         fetchNewCharacters();
-    }, [])
-    if(loading && characters.length === 0) return <ActivityIndicator />;
-    if(error) return <View />;
+    },[]);
+
+    // useEffect(() => {
+    //     if(loading){
+    //         characters.push({ id: "loading" });
+    //         setLoadingPosition(characters.length -1);
+    //     } else {
+    //         characters.splice(loadingPosition, 1);
+    //     }
+    // }, [loading]);
+
+    const onEndReached = useCallback(() => {
+        if(!loading) fetchNewCharacters();
+    }, [fetchNewCharacters]);
+
     return (
-        <CharactersList characters={characters} onEndReached={fetchNewCharacters} />
+        <CharactersList characters={characters} onEndReached={onEndReached} />
     );
 });

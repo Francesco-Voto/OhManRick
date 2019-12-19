@@ -1,8 +1,9 @@
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import { SafeAreaView } from 'react-native';
+
+import { useCharactersContext } from 'services/reducer';
 import { Characters } from 'features/characters';
 import { Search } from 'features/search';
-import { useCharactersContext } from './src/features/characters/characters.reducer';
 
 const App = () => (
     <SafeAreaView>
