@@ -61,7 +61,7 @@ import { DataProvider } from '../baseProvider';
 
     });
 
-    describe('when an error occur', () => {
+    describe('when an error occurs', () => {
       const error = new Error('Error');
       beforeEach(() => {
         fetcher.setup(f => f('/character')).returns(() => Promise.reject(error));
@@ -72,7 +72,7 @@ import { DataProvider } from '../baseProvider';
         setLoading.verify(f => f(true), Times.once());
       });
 
-      describe('when an error occurs', () => {
+      describe('when the retrieve is performed', () => {
         beforeEach(async () => {
           await subject();
         });
@@ -89,7 +89,28 @@ import { DataProvider } from '../baseProvider';
           setLoading.verify(f => f(false), Times.once());
         });
         
+      });
 
+    });
+
+    describe('when ano url is provided', () => {
+      const error = new Error('Error');
+      beforeEach(() => {
+        urlProvider.setUrl(null);
+        fetcher.setup(f => f('/character')).returns(() => Promise.reject(error));
+      });
+
+      it('should never set a loading state', () => {
+        subject();
+        setLoading.verify(f => f(true), Times.never());
+      });
+
+      it('should never send data', () => {
+        addCharacters.verify(f => f([]), Times.never());
+      });
+
+      it('should reset loading state', () => {
+        setLoading.verify(f => f(false), Times.once());
       });
 
     });
