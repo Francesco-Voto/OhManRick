@@ -12,4 +12,10 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "OhManRick";
   }
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    setTheme(R.style.AppTheme);
+    super.onCreate(savedInstanceState);
+  }
 }
