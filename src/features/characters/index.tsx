@@ -4,6 +4,7 @@ import { CharactersList } from './components/List';
 import { charactersProvider } from './characters.provider';
 
 export const Characters = memo(() => {
+    const [loadingPosition, setLoadingPosition] = useState(-1);
     const { characters, loading, error, addNewCharacters, setLoading, setError } = useCharactersContext();
     const fetchNewCharacters = charactersProvider(addNewCharacters, setLoading, setError);
 
@@ -11,14 +12,14 @@ export const Characters = memo(() => {
         fetchNewCharacters();
     },[]);
 
-    // useEffect(() => {
-    //     if(loading){
-    //         characters.push({ id: "loading" });
-    //         setLoadingPosition(characters.length -1);
-    //     } else {
-    //         characters.splice(loadingPosition, 1);
-    //     }
-    // }, [loading]);
+    useEffect(() => {
+        if(loading){
+            characters.push({ id: "loading" });
+            setLoadingPosition(characters.length -1);
+        } else {
+            characters.splice(loadingPosition, 1);
+        }
+    }, [loading]);
 
     const onEndReached = useCallback(() => {
         if(!loading) fetchNewCharacters();
