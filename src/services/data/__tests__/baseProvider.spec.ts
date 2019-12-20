@@ -93,11 +93,9 @@ import { DataProvider } from '../baseProvider';
 
     });
 
-    describe('when ano url is provided', () => {
-      const error = new Error('Error');
+    describe('when no url is provided', () => {
       beforeEach(() => {
         urlProvider.setUrl(null);
-        fetcher.setup(f => f('/character')).returns(() => Promise.reject(error));
       });
 
       it('should never set a loading state', () => {
@@ -105,14 +103,20 @@ import { DataProvider } from '../baseProvider';
         setLoading.verify(f => f(true), Times.never());
       });
 
-      it('should never send data', () => {
-        addCharacters.verify(f => f([]), Times.never());
-      });
+        it('should never send data', async () => {
+          await subject();
+          addCharacters.verify(f => f([]), Times.never());
+        });
 
-      it('should reset loading state', () => {
-        setLoading.verify(f => f(false), Times.once());
-      });
+        it('should never reset loading state', async () => {
+          await subject();
+          setLoading.verify(f => f(false), Times.never());
+        });
 
+        it('should never set error state', async() => {
+          await subject();
+          setError.verify(f => f(false), Times.never());
+        });
     });
 
 });

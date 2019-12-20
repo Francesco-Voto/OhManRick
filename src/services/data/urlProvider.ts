@@ -11,7 +11,7 @@ export class BaseUrlProvider implements IUrlProvider{
 
     setUrl = (url: string) => this.url = url;    
     
-    getUrl = (filter?: string ) => {
+    getUrl = (filter: string = null) => {
         if(filter !== this.filter){
             this.url = baseUrl;
             if(filter){
