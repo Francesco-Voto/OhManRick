@@ -11,7 +11,7 @@ export const DataProvider = (
     saveCharacters: (characters: Character[]) => void,
     setLoading: (loading: boolean) => void,
     setError: (error: any) => void
-) => async (filter: string) => {
+) => async (filter?: string) => {
     const url = urlProvider.getUrl(filter);
     if(url){
         try{

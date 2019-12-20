@@ -1,7 +1,7 @@
 import { IHTTPClient, httpClient } from 'services/apiClient';
 import { Character, Data } from 'types';
+import { BaseUrlProvider } from 'services/data/urlProvider';
 import { IUrlProvider } from './urlProvider';
-import { BaseUrlProvider } from '../../services/data/urlProvider';
 
 export const charactersFetcher = (client: IHTTPClient) => async (url: string): Promise<Data> => await client.get(url);
 

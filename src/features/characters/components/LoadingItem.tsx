@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { Theme } from 'config/theme';
 
 const styles = StyleSheet.create({
