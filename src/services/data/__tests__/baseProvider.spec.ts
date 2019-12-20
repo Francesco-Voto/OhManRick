@@ -119,4 +119,26 @@ import { DataProvider } from '../baseProvider';
         });
     });
 
+    describe('when a new url is provided back', () => {
+      const newUrl = '/character?page=2';
+      let mockFunction;
+
+      beforeEach(async() => {
+        mockFunction = jest.spyOn(urlProvider, 'setUrl');
+        fetcher.setup(f => f('/character')).returns(() => Promise.resolve(
+          { 
+            data: { 
+              results: [], 
+              info: { next: newUrl} 
+            },
+          }
+        ));
+        await subject();
+      });
+
+      it('should save it', () => {
+        expect(mockFunction).toHaveBeenCalledWith(newUrl);
+      });
+    });
+
 });
