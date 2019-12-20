@@ -1,5 +1,5 @@
-import React, { memo, useCallback } from 'react';
-import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { memo } from 'react';
+import { FlatList, View, StyleSheet } from 'react-native';
 import { Theme } from 'config/theme';
 import { Character } from 'types';
 import { CharacterItem } from './CharacterItem';
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     list: {
         backgroundColor: Theme.colors.background,
-    }
+    },
 });
 
 function keyExtractor(item: Character): string{
@@ -46,8 +46,9 @@ export const CharactersList = memo(({
     return (
         <FlatList
             style={styles.list}
+            contentInset={{top: 0, bottom: 60, left: 0, right: 0}}
+            contentInsetAdjustmentBehavior="automatic"
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingTop: 16}}
             data={characters}
             keyExtractor={keyExtractor}
             renderItem={renderItem}

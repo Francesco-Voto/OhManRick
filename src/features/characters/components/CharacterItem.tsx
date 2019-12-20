@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 export const CharacterItem = ({ item }: Props) => (
     <View style={styles.container}>
         <Image style={styles.image} source={{ uri: item.image}} />
-        <H1 style={styles.name} numberOfLines={3}>{item.name}</H1>
+        <H1 style={styles.name}>{item.name}</H1>
         <StatusBadge style={styles.status} status={item.status} />
     </View>
 );
