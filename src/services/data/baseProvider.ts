@@ -11,15 +11,13 @@ export const DataProvider = (
     saveCharacters: (characters: Character[]) => void,
     setLoading: (loading: boolean) => void,
     setError: (error: any) => void
-) => async (filter?: string) => {
-    const url = urlProvider.getUrl(filter);
-    console.log(url, 'URL111');
+) => async () => {
+    const url = urlProvider.getUrl();
     if(url){
         try{
             setLoading(true);
             const data = await client(url);
             saveCharacters(data.data.results);
-            console.log(data.data.info.next, 'URL');
             urlProvider.setUrl(data.data.info.next);
         }catch(error){
             setError(error);

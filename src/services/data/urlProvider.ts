@@ -4,7 +4,7 @@ export interface IUrlProvider {
     setFilter: (filter?: string) => void;
 }
 
-const baseUrl = '/character';
+export const baseUrl = '/character';
 
 export class BaseUrlProvider implements IUrlProvider{
     private url: string = baseUrl;
