@@ -2,8 +2,10 @@ import React, { useState, memo, useCallback } from 'react';
 import { SearchInput } from './components/SearchInput';
 import { View, StyleSheet } from 'react-native';
 import { Theme } from 'config/theme';
+import debounce from 'lodash.debounce';
 import { useCharactersContext } from 'services/reducer';
-import { charactersProvider } from './search.provider';
+import { baseUrlProvider } from 'services/data/urlProvider';
+import { searchProvider } from './search.provider';
 
 
 const styles = StyleSheet.create({
@@ -26,10 +28,11 @@ const styles = StyleSheet.create({
 export const Search = memo(() => {
     const [text, setText] = useState('');
     const { setNewCharacters, setLoading, setError } = useCharactersContext();
-    const fetchNewCharacters = charactersProvider(setNewCharacters, setLoading, setError);
+    const fetchNewCharacters = debounce(searchProvider(setNewCharacters, setLoading, setError), 300);
     
     const setNewText = useCallback((text: string) => {
         setText(text);
+        baseUrlProvider.setFilter(text);
         fetchNewCharacters(text);
     }, []);
 

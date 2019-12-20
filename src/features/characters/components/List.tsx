@@ -25,7 +25,6 @@ function keyExtractor(item: Character): string{
 };
 
 function renderItem({ item }){
-    console.log(item);
     if( item.id === 'loading'){
         return (
             <View style={styles.wrapper}>
@@ -52,7 +51,7 @@ export const CharactersList = memo(({
             data={characters}
             keyExtractor={keyExtractor}
             renderItem={renderItem}
-            onEndReachedThreshold={3}
+            onEndReachedThreshold={1}
             onEndReached={onEndReached}
         />
     );

@@ -1,6 +1,7 @@
 export interface IUrlProvider {
     setUrl: (url: string) => void;
-    getUrl: (filter?: string) => string;
+    getUrl: () => string;
+    setFilter: (filter?: string) => void;
 }
 
 const baseUrl = '/character';
@@ -9,17 +10,16 @@ export class BaseUrlProvider implements IUrlProvider{
     private url: string = baseUrl;
     private filter: string = null;
 
+    setFilter = (filter: string = null) => {
+        if(!filter) this.url = baseUrl;
+        else this.url = `${baseUrl}?name=${filter}`;
+        this.filter = filter;
+    };
+
     setUrl = (url: string) => this.url = url;    
     
-    getUrl = (filter: string = null) => {
-        if(filter !== this.filter){
-            this.url = baseUrl;
-            if(filter){
-                this.url = `${this.url}?name=${filter}`;
-            }
-            this.filter = filter;
-        }
-        return this.url;
-    }
+    getUrl = () => this.url;
 
 };
+
+export const baseUrlProvider = new BaseUrlProvider();
